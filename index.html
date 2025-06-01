@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>استراتيجية التداول المتقدمة للعملات الرقمية</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="title">🚀 استراتيجية التداول المتقدمة</h1>
+            <p class="subtitle">تحليل ذكي للعملات الرقمية باستخدام 7 معايير فنية</p>
+        </div>
+    </header>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="totalCoins">0</div>
+                        <div class="stat-label">إجمالي العملات</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">✅</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="qualifiedCoins">0</div>
+                        <div class="stat-label">عملات مؤهلة</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⭐</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="avgScore">0</div>
+                        <div class="stat-label">متوسط النقاط</div>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🕒</div>
+                    <div class="stat-info">
+                        <div class="stat-number" id="lastUpdate">--</div>
+                        <div class="stat-label">آخر تحديث</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Loading Indicator -->
+    <div class="loading-indicator" id="loadingIndicator">
+        <div class="loading-spinner"></div>
+        <div class="loading-text">جاري تحليل العملات...</div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Controls -->
+            <div class="controls-section">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="البحث عن عملة..." onkeyup="searchCoins(this.value)">
+                </div>
+                <div class="filter-buttons">
+                    <button class="filter-btn active" onclick="filterByScore(0)">الكل</button>
+                    <button class="filter-btn" onclick="filterByScore(30)">30+ نقطة</button>
+                    <button class="filter-btn" onclick="filterByScore(50)">50+ نقطة</button>
+                    <button class="filter-btn" onclick="filterByScore(70)">70+ نقطة</button>
+                </div>
+                <button class="export-btn" onclick="exportData()">تصدير البيانات</button>
+            </div>
+
+            <!-- Coins Grid -->
+            <div class="coins-grid" id="coinsGrid">
+                <!-- سيتم ملء البطاقات هنا بواسطة JavaScript -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">تحليل مفصل</h2>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-content" id="modalContent">
+                <!-- سيتم ملء المحتوى هنا بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>📈 المعايير التحليلية</h3>
+                    <ul>
+                        <li>مؤشر RSI - اختراق مستوى 50</li>
+                        <li>MACD - تقاطع خط الإشارة</li>
+                        <li>المتوسط المتحرك - اختراق صعودي</li>
+                        <li>مستويات المقاومة - اقتراب أو اختراق</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>⚡ مؤشرات إضافية</h3>
+                    <ul>
+                        <li>مؤشر السيولة - تقاطع صعودي</li>
+                        <li>حجم التداول - زيادة في آخر 4 ساعات</li>
+                        <li>قوة الاتجاه - تقييم شامل</li>
+                        <li>نظام النقاط - ترتيب من 100</li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>⚠️ تنويه مهم</h3>
+                    <p>هذا التطبيق للأغراض التعليمية فقط. يرجى إجراء بحثك الخاص قبل اتخاذ أي قرارات استثمارية.</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 استراتيجية التداول المتقدمة. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+    
+       <script>
+        // دالات مساعدة للواجهة
+        function searchCoins(query) {
+            if (window.tradingStrategy) {
+                window.tradingStrategy.searchCoins(query);
+            }
+        }
+        
+        function filterByScore(minScore) {
+            if (window.tradingStrategy) {
+                window.tradingStrategy.filterByScore(minScore);
+            }
+            
+            // تحديث حالة الأزرار
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+        
+        function exportData() {
+            if (window.tradingStrategy) {
+                window.tradingStrategy.exportData();
+            }
+        }
+        
+        // تحديث يدوي
+        function refreshData() {
+            if (window.tradingStrategy) {
+                window.tradingStrategy.loadCoinsData();
+            }
+        }
+        
+        // اختصارات لوحة المفاتيح
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                refreshData();
+            }
+        });
+    </script>
+</body>
+</html>
+
