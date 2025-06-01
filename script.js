@@ -130,27 +130,26 @@ class TradingStrategy {
         }));
     }
     
-    filterCoins(tickers) {
-        return tickers.filter(ticker => {
-            const symbol = ticker.instId.split('-')[0];
-            const price = parseFloat(ticker.last);
-            const volume = parseFloat(ticker.volCcy24h);
-            
-            // استبعاد العملات المستقرة
-            if (CONFIG.EXCLUDED_COINS.includes(symbol)) return false;
-            
-            // التأكد من أن العملة مرتبطة بـ USDT
-            if (!ticker.instId.endsWith('-USDT')) return false;
-            
-            // استبعاد العملات الصفرية
-            if (price < CONFIG.MIN_PRICE) return false;
-            
-            // استبعاد العملات ذات الحجم المنخفض
-            if (volume < CONFIG.MIN_VOLUME) return false;
-            
-            return true;
-        });
-    }
+   filterCoins(tickers) {
+    // تعريف القيم الافتراضية
+    const EXCLUDED_COINS = ['USDT', 'USDC', 'BUSD', 'DAI', 'TUSD'];
+    const MIN_PRICE = 0.000001;
+    const MIN_VOLUME = 100000;
+    
+    return tickers.filter(ticker => {
+        const symbol = ticker.instId.split('-')[0];
+        const price = parseFloat(ticker.last);
+        const volume = parseFloat(ticker.volCcy24h);
+        
+        if (EXCLUDED_COINS.includes(symbol)) return false;
+        if (!ticker.instId.endsWith('-USDT')) return false;
+        if (price < MIN_PRICE) return false;
+        if (volume < MIN_VOLUME) return false;
+        
+        return true;
+    });
+}
+
     
     async analyzeCoins(tickers) {
         const analyzedCoins = [];
