@@ -3,176 +3,1037 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>استراتيجية التداول المتقدمة للعملات الرقمية</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <meta name="description" content="نظام تحليل واستراتيجية التداول للعملات الرقمية - تحليل فني متقدم وإشارات تداول">
+    <meta name="keywords" content="تداول, عملات رقمية, تحليل فني, استراتيجية تداول, بيتكوين, إيثيريوم">
+    <meta name="author" content="نظام استراتيجية التداول">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="نظام استراتيجية التداول للعملات الرقمية">
+    <meta property="og:description" content="تحليل فني متقدم وإشارات تداول للعملات الرقمية">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://trading-strategy.com">
+    <meta property="og:image" content="https://trading-strategy.com/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="نظام استراتيجية التداول">
+    <meta name="twitter:description" content="تحليل فني متقدم للعملات الرقمية">
+    <meta name="twitter:image" content="https://trading-strategy.com/twitter-image.jpg">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Preconnect to external domains -->
+    <link rel="preconnect" href="https://api.coingecko.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <title>نظام استراتيجية التداول - تحليل العملات الرقمية</title>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "نظام استراتيجية التداول",
+        "description": "تحليل فني متقدم وإشارات تداول للعملات الرقمية",
+        "url": "https://trading-strategy.com",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        }
+    }
+    </script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <h1 class="title">🚀 استراتيجية التداول المتقدمة</h1>
-            <p class="subtitle">تحليل ذكي للعملات الرقمية باستخدام 7 معايير فنية</p>
-        </div>
-    </header>
-
-    <!-- Stats Section -->
-    <section class="stats-section">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">📊</div>
-                    <div class="stat-info">
-                        <div class="stat-number" id="totalCoins">0</div>
-                        <div class="stat-label">إجمالي العملات</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">✅</div>
-                    <div class="stat-info">
-                        <div class="stat-number" id="qualifiedCoins">0</div>
-                        <div class="stat-label">عملات مؤهلة</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">⭐</div>
-                    <div class="stat-info">
-                        <div class="stat-number" id="avgScore">0</div>
-                        <div class="stat-label">متوسط النقاط</div>
-                    </div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-icon">🕒</div>
-                    <div class="stat-info">
-                        <div class="stat-number" id="lastUpdate">--</div>
-                        <div class="stat-label">آخر تحديث</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Loading Indicator -->
-    <div class="loading-indicator" id="loadingIndicator">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">جاري تحليل العملات...</div>
+    <!-- مؤشر التحميل الرئيسي -->
+    <div id="loadingIndicator" class="loading-indicator">
+        <div class="spinner"></div>
+        <span>جاري التحميل...</span>
     </div>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            <!-- Controls -->
-            <div class="controls-section">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="البحث عن عملة..." onkeyup="searchCoins(this.value)">
-                </div>
-                <div class="filter-buttons">
-                    <button class="filter-btn active" onclick="filterByScore(0)">الكل</button>
-                    <button class="filter-btn" onclick="filterByScore(30)">30+ نقطة</button>
-                    <button class="filter-btn" onclick="filterByScore(50)">50+ نقطة</button>
-                    <button class="filter-btn" onclick="filterByScore(70)">70+ نقطة</button>
-                </div>
-                <button class="export-btn" onclick="exportData()">تصدير البيانات</button>
-            </div>
+    <!-- مؤشر حالة الاتصال -->
+    <div id="connectionStatus" class="connection-status">
+        <span class="status-indicator status-online" id="statusIndicator"></span>
+        <span id="statusText">متصل</span>
+    </div>
 
-            <!-- Coins Grid -->
-            <div class="coins-grid" id="coinsGrid">
-                <!-- سيتم ملء البطاقات هنا بواسطة JavaScript -->
+    <!-- الحاوي الرئيسي -->
+    <div class="container">
+        <!-- رأس الصفحة -->
+        <header class="header">
+            <h1>📊 نظام استراتيجية التداول</h1>
+            <p>تحليل فني متقدم وإشارات تداول للعملات الرقمية</p>
+            
+            <!-- شريط الأدوات -->
+            <div class="toolbar">
+                <button id="refreshBtn" class="btn btn-primary">
+                    🔄 تحديث البيانات
+                </button>
+                
+                <div class="input-group">
+                    <input 
+                        type="text" 
+                        id="searchInput" 
+                        class="form-control" 
+                        placeholder="البحث عن عملة..."
+                        autocomplete="off"
+                    >
+                </div>
+                
+                <div class="input-group">
+                    <select id="scoreFilter" class="form-control">
+                        <option value="0">جميع النقاط</option>
+                        <option value="30">30+ نقطة</option>
+                        <option value="50">50+ نقطة</option>
+                        <option value="70">70+ نقطة</option>
+                        <option value="80">80+ نقطة</option>
+                    </select>
+                </div>
+                
+                <button id="exportBtn" class="btn btn-secondary">
+                    📥 تصدير البيانات
+                </button>
+                
+                <button id="settingsBtn" class="btn btn-secondary">
+                    ⚙️ الإعدادات
+                </button>
             </div>
-        </div>
-    </main>
+            
+            <!-- شريط التقدم -->
+            <div class="progress-bar mt-3">
+                <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+            </div>
+        </header>
 
-    <!-- Modal -->
-    <div class="modal-overlay" id="modalOverlay">
+        <!-- قسم الإحصائيات -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCoins">0</div>
+                    <div class="stat-label">إجمالي العملات</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="qualifiedCoins">0</div>
+                    <div class="stat-label">عملات مؤهلة</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="avgScore">0</div>
+                    <div class="stat-label">متوسط النقاط</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-number" id="marketTrend">📈</div>
+                    <div class="stat-label">اتجاه السوق</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم الفلاتر المتقدمة -->
+        <section class="filters-section">
+            <div class="filters-card">
+                <h3>🔍 فلاتر متقدمة</h3>
+                <div class="filters-grid">
+                    <div class="filter-group">
+                        <label for="volumeFilter">الحد الأدنى للحجم:</label>
+                        <input type="range" id="volumeFilter" min="0" max="1000000000" step="1000000" value="0">
+                        <span id="volumeValue">$0</span>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="priceFilter">نطاق السعر:</label>
+                        <div class="price-range">
+                            <input type="number" id="minPrice" placeholder="الحد الأدنى" step="0.01">
+                            <span>-</span>
+                            <input type="number" id="maxPrice" placeholder="الحد الأقصى" step="0.01">
+                        </div>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="changeFilter">تغيير السعر (24س):</label>
+                        <select id="changeFilter" class="form-control">
+                            <option value="all">جميع التغييرات</option>
+                            <option value="positive">إيجابي فقط</option>
+                            <option value="negative">سلبي فقط</option>
+                            <option value="high-positive">+10% أو أكثر</option>
+                            <option value="high-negative">-10% أو أقل</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="sortBy">ترتيب حسب:</label>
+                        <select id="sortBy" class="form-control">
+                            <option value="score">النقاط</option>
+                            <option value="price">السعر</option>
+                            <option value="volume">الحجم</option>
+                            <option value="change">التغيير</option>
+                            <option value="marketCap">القيمة السوقية</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="filter-actions">
+                    <button id="applyFilters" class="btn btn-primary">تطبيق الفلاتر</button>
+                    <button id="resetFilters" class="btn btn-secondary">إعادة تعيين</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم التنبيهات -->
+        <section class="alerts-section">
+            <div class="alerts-card">
+                <h3>🔔 التنبيهات النشطة</h3>
+                <div id="alertsList" class="alerts-list">
+                    <!-- سيتم ملء التنبيهات هنا بواسطة JavaScript -->
+                </div>
+                <button id="addAlert" class="btn btn-success">إضافة تنبيه جديد</button>
+            </div>
+        </section>
+
+        <!-- قسم العملات -->
+        <section class="coins-section">
+            <div class="section-header">
+                <h2>💰 العملات الرقمية</h2>
+                <div class="view-options">
+                    <button id="gridView" class="btn btn-sm active">📊 شبكة</button>
+                    <button id="listView" class="btn btn-sm">📋 قائمة</button>
+                    <button id="chartView" class="btn btn-sm">📈 رسوم بيانية</button>
+                </div>
+            </div>
+            
+            <!-- شبكة العملات -->
+            <div id="coinsGrid" class="coins-grid">
+                <!-- بطاقات التحميل -->
+                <div class="loading-card skeleton">
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                    <div class="skeleton-text medium"></div>
+                </div>
+                <div class="loading-card skeleton">
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                    <div class="skeleton-text medium"></div>
+                </div>
+                <div class="loading-card skeleton">
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                    <div class="skeleton-text medium"></div>
+                </div>
+            </div>
+            
+            <!-- عرض القائمة -->
+            <div id="coinsList" class="coins-list d-none">
+                <table class="coins-table">
+                    <thead>
+                        <tr>
+                            <th>الترتيب</th>
+                            <th>العملة</th>
+                            <th>السعر</th>
+                            <th>التغيير (24س)</th>
+                            <th>الحجم</th>
+                            <th>القيمة السوقية</th>
+                            <th>النقاط</th>
+                            <th>الإجراءات</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coinsTableBody">
+                        <!-- سيتم ملء البيانات هنا -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- عرض الرسوم البيانية -->
+            <div id="coinsCharts" class="coins-charts d-none">
+                <div class="charts-grid">
+                    <!-- سيتم إضافة الرسوم البيانية هنا -->
+                </div>
+            </div>
+        </section>
+
+        <!-- قسم التحليل السريع -->
+        <section class="quick-analysis-section">
+            <div class="analysis-card">
+                <h3>⚡ التحليل السريع</h3>
+                <div class="quick-stats">
+                    <div class="quick-stat">
+                        <span class="label">أفضل أداء:</span>
+                        <span id="topPerformer" class="value">-</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="label">أسوأ أداء:</span>
+                        <span id="worstPerformer" class="value">-</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="label">أعلى حجم:</span>
+                        <span id="highestVolume" class="value">-</span>
+                    </div>
+                    <div class="quick-stat">
+                        <span class="label">أعلى نقاط:</span>
+                        <span id="highestScore" class="value">-</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- جميع النوافذ المنبثقة والمودالز -->
+    <!-- النافذة المنبثقة لتفاصيل العملة -->
+    <div id="modalOverlay" class="modal-overlay">
         <div class="modal">
             <div class="modal-header">
-                <h2 id="modalTitle">تحليل مفصل</h2>
-                <button class="close-btn" id="closeModal">&times;</button>
+                <h2 id="modalTitle" class="modal-title">تفاصيل العملة</h2>
+                <button id="closeModal" class="close-btn" aria-label="إغلاق">×</button>
             </div>
-            <div class="modal-content" id="modalContent">
+            <div id="modalContent" class="modal-content">
                 <!-- سيتم ملء المحتوى هنا بواسطة JavaScript -->
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>📈 المعايير التحليلية</h3>
-                    <ul>
-                        <li>مؤشر RSI - اختراق مستوى 50</li>
-                        <li>MACD - تقاطع خط الإشارة</li>
-                        <li>المتوسط المتحرك - اختراق صعودي</li>
-                        <li>مستويات المقاومة - اقتراب أو اختراق</li>
-                    </ul>
+    <!-- نافذة الإعدادات -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">⚙️ الإعدادات</h2>
+                <button id="closeSettings" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="settings-section">
+                    <h3>🔄 إعدادات التحديث</h3>
+                    <div class="setting-item">
+                        <label for="autoRefresh">التحديث التلقائي:</label>
+                        <input type="checkbox" id="autoRefresh" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="refreshInterval">فترة التحديث (ثانية):</label>
+                        <input type="number" id="refreshInterval" min="10" max="300" value="30">
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h3>⚡ مؤشرات إضافية</h3>
-                    <ul>
-                        <li>مؤشر السيولة - تقاطع صعودي</li>
-                        <li>حجم التداول - زيادة في آخر 4 ساعات</li>
-                        <li>قوة الاتجاه - تقييم شامل</li>
-                        <li>نظام النقاط - ترتيب من 100</li>
-                    </ul>
+                
+                <div class="settings-section">
+                    <h3>🔔 إعدادات التنبيهات</h3>
+                    <div class="setting-item">
+                        <label for="enableNotifications">تفعيل الإشعارات:</label>
+                        <input type="checkbox" id="enableNotifications">
+                    </div>
+                    <div class="setting-item">
+                        <label for="soundAlerts">التنبيهات الصوتية:</label>
+                        <input type="checkbox" id="soundAlerts">
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h3>⚠️ تنويه مهم</h3>
-                    <p>هذا التطبيق للأغراض التعليمية فقط. يرجى إجراء بحثك الخاص قبل اتخاذ أي قرارات استثمارية.</p>
+                
+                <div class="settings-section">
+                    <h3>🎨 إعدادات العرض</h3>
+                    <div class="setting-item">
+                        <label for="darkMode">الوضع المظلم:</label>
+                        <input type="checkbox" id="darkMode">
+                    </div>
+                    <div class="setting-item">
+                        <label for="compactView">العرض المضغوط:</label>
+                        <input type="checkbox" id="compactView">
+                    </div>
+                    <div class="setting-item">
+                        <label for="currency">العملة المرجعية:</label>
+                        <select id="currency" class="form-control">
+                            <option value="usd">دولار أمريكي (USD)</option>
+                            <option value="eur">يورو (EUR)</option>
+                            <option value="btc">بيتكوين (BTC)</option>
+                            <option value="eth">إيثيريوم (ETH)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>📊 إعدادات التحليل</h3>
+                    <div class="setting-item">
+                        <label for="minScore">الحد الأدنى للنقاط:</label>
+                        <input type="range" id="minScore" min="0" max="100" value="30">
+                        <span id="minScoreValue">30</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="analysisDepth">عمق التحليل:</label>
+                        <select id="analysisDepth" class="form-control">
+                            <option value="basic">أساسي</option>
+                            <option value="intermediate">متوسط</option>
+                            <option value="advanced">متقدم</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button id="saveSettings" class="btn btn-primary">حفظ الإعدادات</button>
+                    <button id="resetSettings" class="btn btn-secondary">إعادة تعيين</button>
+                    <button id="exportSettings" class="btn btn-info">تصدير الإعدادات</button>
+                    <button id="importSettings" class="btn btn-warning">استيراد الإعدادات</button>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 استراتيجية التداول المتقدمة. جميع الحقوق محفوظة.</p>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة تنبيه -->
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🔔 إضافة تنبيه جديد</h2>
+                <button id="closeAlert" class="close-btn" aria-label="إغلاق">×</button>
             </div>
+            <div class="modal-content">
+                <form id="alertForm" class="alert-form">
+                    <div class="form-group">
+                        <label for="alertCoin">العملة:</label>
+                        <select id="alertCoin" class="form-control" required>
+                            <option value="">اختر العملة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertType">نوع التنبيه:</label>
+                        <select id="alertType" class="form-control" required>
+                            <option value="price_above">السعر أعلى من</option>
+                            <option value="price_below">السعر أقل من</option>
+                            <option value="change_above">التغيير أعلى من</option>
+                            <option value="change_below">التغيير أقل من</option>
+                            <option value="volume_above">الحجم أعلى من</option>
+                            <option value="score_above">النقاط أعلى من</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertValue">القيمة:</label>
+                        <input type="number" id="alertValue" class="form-control" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertMessage">رسالة التنبيه (اختياري):</label>
+                        <textarea id="alertMessage" class="form-control" rows="3" placeholder="رسالة مخصصة للتنبيه"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إضافة التنبيه</button>
+                        <button type="button" id="cancelAlert" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة عرض السجلات -->
+    <div id="logsModal" class="modal-overlay">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">📋 سجلات النظام</h2>
+                <button id="closeLogs" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="logs-controls">
+                    <button id="clearLogs" class="btn btn-danger">مسح السجلات</button>
+                    <button id="exportLogs" class="btn btn-secondary">تصدير السجلات</button>
+                    <select id="logLevel" class="form-control">
+                        <option value="all">جميع المستويات</option>
+                        <option value="error">أخطاء فقط</option>
+                        <option value="warning">تحذيرات فقط</option>
+                        <option value="info">معلومات فقط</option>
+                    </select>
+                </div>
+                <div id="logsContent" class="logs-content">
+                    <!-- سيتم ملء السجلات هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الإبلاغ عن مشكلة -->
+    <div id="issueModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🐛 الإبلاغ عن مشكلة</h2>
+                <button id="closeIssue" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <form id="issueForm" class="issue-form">
+                    <div class="form-group">
+                        <label for="issueType">نوع المشكلة:</label>
+                        <select id="issueType" class="form-control" required>
+                            <option value="">اختر نوع المشكلة</option>
+                            <option value="bug">خطأ في البرنامج</option>
+                            <option value="performance">مشكلة في الأداء</option>
+                            <option value="ui">مشكلة في واجهة المستخدم</option>
+                            <option value="data">مشكلة في البيانات</option>
+                            <option value="feature">طلب ميزة جديدة</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueTitle">عنوان المشكلة:</label>
+                        <input type="text" id="issueTitle" class="form-control" required placeholder="وصف مختصر للمشكلة">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueDescription">وصف تفصيلي:</label>
+                        <textarea id="issueDescription" class="form-control" rows="5" required placeholder="اشرح المشكلة بالتفصيل..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueSteps">خطوات إعادة الإنتاج:</label>
+                        <textarea id="issueSteps" class="form-control" rows="3" placeholder="1. افتح الصفحة&#10;2. انقر على...&#10;3. لاحظ المشكلة"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userEmail">البريد الإلكتروني (اختياري):</label>
+                        <input type="email" id="userEmail" class="form-control" placeholder="للمتابعة">
+                    </div>
+                    
+                    <div class="system-info">
+                        <h4>معلومات النظام:</h4>
+                        <div id="systemInfo" class="system-details">
+                            <!-- سيتم ملء معلومات النظام تلقائياً -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إرسال التقرير</button>
+                        <button type="button" id="cancelIssue" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- حاوي الإشعارات -->
+    <div id="notificationsContainer" class="notifications-container"></div>
+
+    <!-- شريط الحالة السفلي -->
+    <footer class="status-bar">
+        <div class="status-info">
+            <span id="lastUpdate">آخر تحديث: -</span>
+            <span id="dataSource">المصدر: CoinGecko API</span>
+            <span id="totalRequests">الطلبات: 0</span>
+        </div>
+        <div class="status-actions">
+            <button id="clearCache" class="btn btn-sm">مسح التخزين المؤقت</button>
+            <button id="viewLogs" class="btn btn-sm">عرض السجلات</button>
+            <button id="reportIssue" class="btn btn-sm">الإبلاغ عن مشكلة</button>
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="config.js"></script>
-    <script src="script.js"></script>
-    
-       <script>
-        // دالات مساعدة للواجهة
-        function searchCoins(query) {
-            if (window.tradingStrategy) {
-                window.tradingStrategy.searchCoins(query);
-            }
-        }
-        
-        function filterByScore(minScore) {
-            if (window.tradingStrategy) {
-                window.tradingStrategy.filterByScore(minScore);
-            }
-            
-            // تحديث حالة الأزرار
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-        
-        function exportData() {
-            if (window.tradingStrategy) {
-                window.tradingStrategy.exportData();
-            }
-        }
-        
-        // تحديث يدوي
-        function refreshData() {
-            if (window.tradingStrategy) {
-                window.tradingStrategy.loadCoinsData();
-            }
-        }
-        
-        // اختصارات لوحة المفاتيح
-        document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 'r') {
-                e.preventDefault();
-                refreshData();
-            }
-        });
-    </script>
+    <!-- مشغل الصوت للتنبيهات -->
+    <audio id="alertSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmE
+            <div id="modalContent" class="modal-content">
+                <!-- سيتم ملء المحتوى هنا بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الإعدادات -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">⚙️ الإعدادات</h2>
+                <button id="closeSettings" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="settings-section">
+                    <h3>🔄 إعدادات التحديث</h3>
+                    <div class="setting-item">
+                        <label for="autoRefresh">التحديث التلقائي:</label>
+                        <input type="checkbox" id="autoRefresh" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="refreshInterval">فترة التحديث (ثانية):</label>
+                        <input type="number" id="refreshInterval" min="10" max="300" value="30">
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>🔔 إعدادات التنبيهات</h3>
+                    <div class="setting-item">
+                        <label for="enableNotifications">تفعيل الإشعارات:</label>
+                        <input type="checkbox" id="enableNotifications">
+                    </div>
+                    <div class="setting-item">
+                        <label for="soundAlerts">التنبيهات الصوتية:</label>
+                        <input type="checkbox" id="soundAlerts">
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>🎨 إعدادات العرض</h3>
+                    <div class="setting-item">
+                        <label for="darkMode">الوضع المظلم:</label>
+                        <input type="checkbox" id="darkMode">
+                    </div>
+                    <div class="setting-item">
+                        <label for="compactView">العرض المضغوط:</label>
+                        <input type="checkbox" id="compactView">
+                    </div>
+                    <div class="setting-item">
+                        <label for="currency">العملة المرجعية:</label>
+                        <select id="currency" class="form-control">
+                            <option value="usd">دولار أمريكي (USD)</option>
+                            <option value="eur">يورو (EUR)</option>
+                            <option value="btc">بيتكوين (BTC)</option>
+                            <option value="eth">إيثيريوم (ETH)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>📊 إعدادات التحليل</h3>
+                    <div class="setting-item">
+                        <label for="minScore">الحد الأدنى للنقاط:</label>
+                        <input type="range" id="minScore" min="0" max="100" value="30">
+                        <span id="minScoreValue">30</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="analysisDepth">عمق التحليل:</label>
+                        <select id="analysisDepth" class="form-control">
+                            <option value="basic">أساسي</option>
+                            <option value="intermediate">متوسط</option>
+                            <option value="advanced">متقدم</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button id="saveSettings" class="btn btn-primary">حفظ الإعدادات</button>
+                    <button id="resetSettings" class="btn btn-secondary">إعادة تعيين</button>
+                    <button id="exportSettings" class="btn btn-info">تصدير الإعدادات</button>
+                    <button id="importSettings" class="btn btn-warning">استيراد الإعدادات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة تنبيه -->
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🔔 إضافة تنبيه جديد</h2>
+                <button id="closeAlert" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <form id="alertForm" class="alert-form">
+                    <div class="form-group">
+                        <label for="alertCoin">العملة:</label>
+                        <select id="alertCoin" class="form-control" required>
+                            <option value="">اختر العملة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertType">نوع التنبيه:</label>
+                        <select id="alertType" class="form-control" required>
+                            <option value="price_above">السعر أعلى من</option>
+                            <option value="price_below">السعر أقل من</option>
+                            <option value="change_above">التغيير أعلى من</option>
+                            <option value="change_below">التغيير أقل من</option>
+                            <option value="volume_above">الحجم أعلى من</option>
+                            <option value="score_above">النقاط أعلى من</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertValue">القيمة:</label>
+                        <input type="number" id="alertValue" class="form-control" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertMessage">رسالة التنبيه (اختياري):</label>
+                        <textarea id="alertMessage" class="form-control" rows="3" placeholder="رسالة مخصصة للتنبيه"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إضافة التنبيه</button>
+                        <button type="button" id="cancelAlert" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة عرض السجلات -->
+    <div id="logsModal" class="modal-overlay">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">📋 سجلات النظام</h2>
+                <button id="closeLogs" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="logs-controls">
+                    <button id="clearLogs" class="btn btn-danger">مسح السجلات</button>
+                    <button id="exportLogs" class="btn btn-secondary">تصدير السجلات</button>
+                    <select id="logLevel" class="form-control">
+                        <option value="all">جميع المستويات</option>
+                        <option value="error">أخطاء فقط</option>
+                        <option value="warning">تحذيرات فقط</option>
+                        <option value="info">معلومات فقط</option>
+                    </select>
+                </div>
+                <div id="logsContent" class="logs-content">
+                    <!-- سيتم ملء السجلات هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الإبلاغ عن مشكلة -->
+    <div id="issueModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🐛 الإبلاغ عن مشكلة</h2>
+                <button id="closeIssue" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <form id="issueForm" class="issue-form">
+                    <div class="form-group">
+                        <label for="issueType">نوع المشكلة:</label>
+                        <select id="issueType" class="form-control" required>
+                            <option value="">اختر نوع المشكلة</option>
+                            <option value="bug">خطأ في البرنامج</option>
+                            <option value="performance">مشكلة في الأداء</option>
+                            <option value="ui">مشكلة في واجهة المستخدم</option>
+                            <option value="data">مشكلة في البيانات</option>
+                            <option value="feature">طلب ميزة جديدة</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueTitle">عنوان المشكلة:</label>
+                        <input type="text" id="issueTitle" class="form-control" required placeholder="وصف مختصر للمشكلة">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueDescription">وصف تفصيلي:</label>
+                        <textarea id="issueDescription" class="form-control" rows="5" required placeholder="اشرح المشكلة بالتفصيل..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueSteps">خطوات إعادة الإنتاج:</label>
+                        <textarea id="issueSteps" class="form-control" rows="3" placeholder="1. افتح الصفحة&#10;2. انقر على...&#10;3. لاحظ المشكلة"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userEmail">البريد الإلكتروني (اختياري):</label>
+                        <input type="email" id="userEmail" class="form-control" placeholder="للمتابعة">
+                    </div>
+                    
+                    <div class="system-info">
+                        <h4>معلومات النظام:</h4>
+                        <div id="systemInfo" class="system-details">
+                            <!-- سيتم ملء معلومات النظام تلقائياً -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إرسال التقرير</button>
+                        <button type="button" id="cancelIssue" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- حاوي الإشعارات -->
+    <div id="notificationsContainer" class="notifications-container"></div>
+
+    <!-- شريط الحالة السفلي -->
+    <footer class="status-bar">
+        <div class="status-info">
+            <span id="lastUpdate">آخر تحديث: -</span>
+            <span id="dataSource">المصدر: CoinGecko API</span>
+            <span id="totalRequests">الطلبات: 0</span>
+        </div>
+        <div class="status-actions">
+            <button id="clearCache" class="btn btn-sm">مسح التخزين المؤقت</button>
+            <button id="viewLogs" class="btn btn-sm">عرض السجلات</button>
+            <button id="reportIssue" class="btn btn-sm">الإبلاغ عن مشكلة</button>
+        </div>
+    </footer>
+
+    <!-- مشغل الصوت للتنبيهات -->
+    <audio id="alertSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmE
+            <div id="modalContent" class="modal-content">
+                <!-- سيتم ملء المحتوى هنا بواسطة JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الإعدادات -->
+    <div id="settingsModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">⚙️ الإعدادات</h2>
+                <button id="closeSettings" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="settings-section">
+                    <h3>🔄 إعدادات التحديث</h3>
+                    <div class="setting-item">
+                        <label for="autoRefresh">التحديث التلقائي:</label>
+                        <input type="checkbox" id="autoRefresh" checked>
+                    </div>
+                    <div class="setting-item">
+                        <label for="refreshInterval">فترة التحديث (ثانية):</label>
+                        <input type="number" id="refreshInterval" min="10" max="300" value="30">
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>🔔 إعدادات التنبيهات</h3>
+                    <div class="setting-item">
+                        <label for="enableNotifications">تفعيل الإشعارات:</label>
+                        <input type="checkbox" id="enableNotifications">
+                    </div>
+                    <div class="setting-item">
+                        <label for="soundAlerts">التنبيهات الصوتية:</label>
+                        <input type="checkbox" id="soundAlerts">
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>🎨 إعدادات العرض</h3>
+                    <div class="setting-item">
+                        <label for="darkMode">الوضع المظلم:</label>
+                        <input type="checkbox" id="darkMode">
+                    </div>
+                    <div class="setting-item">
+                        <label for="compactView">العرض المضغوط:</label>
+                        <input type="checkbox" id="compactView">
+                    </div>
+                    <div class="setting-item">
+                        <label for="currency">العملة المرجعية:</label>
+                        <select id="currency" class="form-control">
+                            <option value="usd">دولار أمريكي (USD)</option>
+                            <option value="eur">يورو (EUR)</option>
+                            <option value="btc">بيتكوين (BTC)</option>
+                            <option value="eth">إيثيريوم (ETH)</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-section">
+                    <h3>📊 إعدادات التحليل</h3>
+                    <div class="setting-item">
+                        <label for="minScore">الحد الأدنى للنقاط:</label>
+                        <input type="range" id="minScore" min="0" max="100" value="30">
+                        <span id="minScoreValue">30</span>
+                    </div>
+                    <div class="setting-item">
+                        <label for="analysisDepth">عمق التحليل:</label>
+                        <select id="analysisDepth" class="form-control">
+                            <option value="basic">أساسي</option>
+                            <option value="intermediate">متوسط</option>
+                            <option value="advanced">متقدم</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="settings-actions">
+                    <button id="saveSettings" class="btn btn-primary">حفظ الإعدادات</button>
+                    <button id="resetSettings" class="btn btn-secondary">إعادة تعيين</button>
+                    <button id="exportSettings" class="btn btn-info">تصدير الإعدادات</button>
+                    <button id="importSettings" class="btn btn-warning">استيراد الإعدادات</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة إضافة تنبيه -->
+    <div id="alertModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🔔 إضافة تنبيه جديد</h2>
+                <button id="closeAlert" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <form id="alertForm" class="alert-form">
+                    <div class="form-group">
+                        <label for="alertCoin">العملة:</label>
+                        <select id="alertCoin" class="form-control" required>
+                            <option value="">اختر العملة</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertType">نوع التنبيه:</label>
+                        <select id="alertType" class="form-control" required>
+                            <option value="price_above">السعر أعلى من</option>
+                            <option value="price_below">السعر أقل من</option>
+                            <option value="change_above">التغيير أعلى من</option>
+                            <option value="change_below">التغيير أقل من</option>
+                            <option value="volume_above">الحجم أعلى من</option>
+                            <option value="score_above">النقاط أعلى من</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertValue">القيمة:</label>
+                        <input type="number" id="alertValue" class="form-control" step="0.01" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="alertMessage">رسالة التنبيه (اختياري):</label>
+                        <textarea id="alertMessage" class="form-control" rows="3" placeholder="رسالة مخصصة للتنبيه"></textarea>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إضافة التنبيه</button>
+                        <button type="button" id="cancelAlert" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة عرض السجلات -->
+    <div id="logsModal" class="modal-overlay">
+        <div class="modal modal-large">
+            <div class="modal-header">
+                <h2 class="modal-title">📋 سجلات النظام</h2>
+                <button id="closeLogs" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <div class="logs-controls">
+                    <button id="clearLogs" class="btn btn-danger">مسح السجلات</button>
+                    <button id="exportLogs" class="btn btn-secondary">تصدير السجلات</button>
+                    <select id="logLevel" class="form-control">
+                        <option value="all">جميع المستويات</option>
+                        <option value="error">أخطاء فقط</option>
+                        <option value="warning">تحذيرات فقط</option>
+                        <option value="info">معلومات فقط</option>
+                    </select>
+                </div>
+                <div id="logsContent" class="logs-content">
+                    <!-- سيتم ملء السجلات هنا -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة الإبلاغ عن مشكلة -->
+    <div id="issueModal" class="modal-overlay">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">🐛 الإبلاغ عن مشكلة</h2>
+                <button id="closeIssue" class="close-btn" aria-label="إغلاق">×</button>
+            </div>
+            <div class="modal-content">
+                <form id="issueForm" class="issue-form">
+                    <div class="form-group">
+                        <label for="issueType">نوع المشكلة:</label>
+                        <select id="issueType" class="form-control" required>
+                            <option value="">اختر نوع المشكلة</option>
+                            <option value="bug">خطأ في البرنامج</option>
+                            <option value="performance">مشكلة في الأداء</option>
+                            <option value="ui">مشكلة في واجهة المستخدم</option>
+                            <option value="data">مشكلة في البيانات</option>
+                            <option value="feature">طلب ميزة جديدة</option>
+                            <option value="other">أخرى</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueTitle">عنوان المشكلة:</label>
+                        <input type="text" id="issueTitle" class="form-control" required placeholder="وصف مختصر للمشكلة">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueDescription">وصف تفصيلي:</label>
+                        <textarea id="issueDescription" class="form-control" rows="5" required placeholder="اشرح المشكلة بالتفصيل..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="issueSteps">خطوات إعادة الإنتاج:</label>
+                        <textarea id="issueSteps" class="form-control" rows="3" placeholder="1. افتح الصفحة&#10;2. انقر على...&#10;3. لاحظ المشكلة"></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="userEmail">البريد الإلكتروني (اختياري):</label>
+                        <input type="email" id="userEmail" class="form-control" placeholder="للمتابعة">
+                    </div>
+                    
+                    <div class="system-info">
+                        <h4>معلومات النظام:</h4>
+                        <div id="systemInfo" class="system-details">
+                            <!-- سيتم ملء معلومات النظام تلقائياً -->
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">إرسال التقرير</button>
+                        <button type="button" id="cancelIssue" class="btn btn-secondary">إلغاء</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- حاوي الإشعارات -->
+    <div id="notificationsContainer" class="notifications-container"></div>
+
+    <!-- شريط الحالة السفلي -->
+    <footer class="status-bar">
+        <div class="status-info">
+            <span id="lastUpdate">آخر تحديث: -</span>
+            <span id="dataSource">المصدر: CoinGecko API</span>
+            <span id="totalRequests">الطلبات: 0</span>
+        </div>
+        <div class="status-actions">
+            <button id="clearCache" class="btn btn-sm">مسح التخزين المؤقت</button>
+            <button id="viewLogs" class="btn btn-sm">عرض السجلات</button>
+            <button id="reportIssue" class="btn btn-sm">الإبلاغ عن مشكلة</button>
+        </div>
+    </footer>
+
+    <!-- مشغل الصوت للتنبيهات -->
+    <audio id="alertSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmEcBjiS2fPNeSsFJHfH8N2QQAoUXrTp66hVFApGn+DyvmE
+    <!-- حاوي الإشعارات -->
+    <div id="notificationsContainer" class="notifications-container"></div>
+
+    <!-- شريط الحالة السفلي -->
+    <footer class="status-bar">
+        <div class="status-info">
+            <span id="lastUpdate">آخر تحديث: -</span>
+            <span id="dataSource">المصدر: CoinGecko API</span>
+            <span id="totalRequests">الطلبات: 0</span>
+        </div>
+        <div class="status-actions">
+            <button id="clearCache" class="btn btn-sm">مسح التخزين المؤقت</button>
+            <button id="viewLogs" class="btn btn-sm">عرض السجلات</button>
+            <button id="reportIssue" class="btn btn-sm">الإبلاغ عن مشكلة</button>
+        </div>
+    </footer>
+
+    <!-- تحميل ملفات JavaScript -->
+    <script src="js/config.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/alerts.js"></script>
+    <script src="js/charts.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
-
